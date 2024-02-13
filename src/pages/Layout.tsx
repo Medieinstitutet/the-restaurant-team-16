@@ -2,11 +2,17 @@ import { Outlet } from "react-router-dom"
 import { Navigation } from "../components/Navigation"
 
 export const Layout = () => {
-    return (<>
+    return (
+      <>
         <header>
-            <Navigation />
+          <Navigation />
         </header>
-        <main><Outlet /></main>
-        <footer>footer</footer>
-    </>)
+        <main>
+          <Outlet />
+        </main>
+        <footer>
+          <p>&copy; 2024 The Golden Fork</p>
+        </footer>
+      </>
+    );
 }
