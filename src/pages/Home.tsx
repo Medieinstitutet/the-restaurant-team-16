@@ -1,4 +1,15 @@
+import { getBookings } from "../Services/BookingService";
 
 export const Home = () => {
-  return <>Home</>;
+
+
+  const handleClick = () => {
+    console.log('click');
+    getBookings()
+  }
+
+  return <>
+
+    <button onClick={handleClick}></button>
+  </>;
 }
