@@ -32,11 +32,21 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         return value.toString();
     }
 
+    const getTodayString = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = `${today.getMonth() + 1}`.padStart(2, '0');
+        const day = `${today.getDate()}`.padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const renderInputField = (key: string, value: string | number | Customer, inputType: string) => {
+        const min = key === "date" ? getTodayString() : undefined;
         return (
             <input
                 type={inputType}
                 id={key}
+                min={min}
                 value={getValueAsString(value)}
                 onChange={(e) => { updateBookingField(key as keyof Booking, inputType === "number" ? parseInt(e.target.value) : e.target.value) }}
             />
@@ -83,18 +93,19 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
                         ));
                     }
                     let inputField;
+                    const value = newBooking[key as keyof Booking];
                     switch (key) {
                         case "time":
-                            inputField = renderSelectField(key, newBooking[key as keyof Booking], ["18:00", "21:00"]);
+                            inputField = renderSelectField(key, value, ["18:00", "21:00"]);
                             break;
                         case "numberOfGuests":
-                            inputField = renderInputField(key, newBooking[key as keyof Booking] || '', "number");
+                            inputField = renderInputField(key, value || '', "number");
                             break;
                         case "date":
-                            inputField = renderInputField(key, newBooking[key as keyof Booking] || '', "date");
+                            inputField = renderInputField(key, value || '', "date");
                             break;
                         default:
-                            inputField = renderInputField(key, newBooking[key as keyof Booking] || '', "text");
+                            inputField = renderInputField(key, value || '', "text");
                             break;
                     }
 
