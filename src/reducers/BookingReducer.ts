@@ -1,29 +1,25 @@
-import { createBooking } from "../Services/BookingService";
 import { Booking } from "../models/Booking";
 
-export interface IAction {
-    type: ActionType;
-    payload: Booking; 
-}
+export type IAction =
+    {type: ActionType.ADD, payload: Booking} | {type: ActionType.REMOVE, payload: number} | {type: ActionType.SET_BOOKINGS, payload: Booking[]}
 
 export enum ActionType { 
     ADD,
-    REMOVE
+    REMOVE,
+    SET_BOOKINGS,
 }
 
-export const BookingReducer = (bookings: Booking[], action: IAction) => {
+export const BookingReducer = (state: Booking[], action: IAction): Booking[] => {
+    console.log('reducer', state);
     switch (action.type) {
+        case ActionType.SET_BOOKINGS:
+            return action.payload;
         case ActionType.ADD:
             console.log('click add');
-            createBooking(action.payload).then((response) => {
-                console.log('response', response);
-                return [...bookings, action.payload];
-            })
-            console.log('bookings', bookings);
-            return bookings;
+            return [...state, action.payload];
         // case ActionType.REMOVE:
         //     return bookings.filter((booking) => booking !== action.payload);
         default:
-            return bookings;
+            return state;
     }
 }

@@ -1,28 +1,59 @@
 import { useState } from "react";
 import { Booking } from "../models/Booking"
 import { Customer } from "../models/Customer";
+import "./BookingForm.scss";
+import { useBookings } from "../contexts/BookingsContext";
 
 interface IBookingProps {
     booking?: Booking;
     handleClick: (newBooking: Booking) => void;
 }
-// interface IBookingProps {
-//     booking?: Booking;
-// }
+
+interface ISittingAvailability {
+    [key: string]: boolean;
+}
+
 export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
-    // export const BookingForm = ({ booking }: IBookingProps) => {
-
-    // const { dispatch } = useContext(BookingsContext);
-
     const [newBooking, setNewBooking] = useState<Booking>(booking || new Booking("", "", "", 0, new Customer("", "", "", "")));
 
+    const [sittingAvailability, setSittingAvailability] = useState<ISittingAvailability>();
+
+    const { bookings } = useBookings();
+
+    const getTotalPersonsForDateAndTime = (date: string, time: string) => {
+        return bookings.filter(booking => booking.date === date && booking.time === time).reduce((total, booking) => total + booking.numberOfGuests, 0)
+    }
+    const sittings = ["18:00", "21:00"];
+
     const updateBookingField = (key: keyof Booking, value: string | number) => {
+        const totalAvailableSeats = 15 * 6;
+        if (key === "date") {
+            console.log('date', value);
+            const availability: ISittingAvailability = {}
+            sittings.forEach(sitting => {
+                const totalPersons = getTotalPersonsForDateAndTime(value as string, sitting);
+                availability[sitting] = totalPersons < totalAvailableSeats;
+                setSittingAvailability(availability);
+            });
+            console.log('availableSeats', availability);
+        }
+        if (key === "numberOfGuests") {
+            const totalPersons = getTotalPersonsForDateAndTime(newBooking.date, newBooking.time);
+            if (totalPersons + (value as number) > totalAvailableSeats) {
+                console.log('No seats available');
+                alert('So many people are not allowed to book a table at the same time, please try again with fewer people.');
+                return newBooking.numberOfGuests = 0;
+            }
+        }
+
+
         setNewBooking(prev => ({
             ...prev,
             restaurantId: "65cb4a68505ba22f8dc6636f",
             [key]: value
         }));
     };
+
 
     const updateCustomerField = (key: keyof Customer, value: string) => {
         setNewBooking(prev => ({
@@ -59,16 +90,19 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         )
     }
 
-    const renderSelectField = (key: string, value: string | number | Customer, options: string[]) => {
+    const renderTimeButtons = (key: string, value: string, options: string[]) => {
         return (
-            <select
-                id={key}
-                value={getValueAsString(value)}
-                onChange={(e) => { updateBookingField(key as keyof Booking, e.target.value) }}>
+            <div>
                 {options.map((time, index) => (
-                    <option key={index} value={time}>{time}</option>
+                    <button key={index}
+                        type="button"
+                        className={`${value === time ? 'selected' : ''} ${sittingAvailability ? sittingAvailability[time] ? '' : 'disabled' : ''}`}
+                        disabled={sittingAvailability ? !sittingAvailability[time] : false}
+                        onClick={() => { updateBookingField(key as keyof Booking, time) }}>
+                        {time}
+                    </button>
                 ))}
-            </select>
+            </div>
         )
     }
 
@@ -76,7 +110,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         e.preventDefault();
         console.log('submit', newBooking);
         handleClick(newBooking);
-        // dispatch({ type: ActionType.ADD, payload: newBooking });
         setNewBooking(booking || new Booking('', '', '', 0, new Customer('', '', '', '')));
     }
 
@@ -103,7 +136,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
                     const value = newBooking[key as keyof Booking];
                     switch (key) {
                         case "time":
-                            inputField = renderSelectField(key, value, ["18:00", "21:00"]);
+                            inputField = renderTimeButtons(key, value as string, ["18:00", "21:00"]);
                             break;
                         case "numberOfGuests":
                             inputField = renderInputField(key, value || '', "number");
@@ -127,5 +160,4 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
             </form>
         </div>
     )
-
 } 
