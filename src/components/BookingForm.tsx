@@ -6,7 +6,13 @@ interface IBookingProps {
     booking?: Booking;
     handleClick: (newBooking: Booking) => void;
 }
+// interface IBookingProps {
+//     booking?: Booking;
+// }
 export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
+    // export const BookingForm = ({ booking }: IBookingProps) => {
+
+    // const { dispatch } = useContext(BookingsContext);
 
     const [newBooking, setNewBooking] = useState<Booking>(booking || new Booking("", "", "", 0, new Customer("", "", "", "")));
 
@@ -70,6 +76,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         e.preventDefault();
         console.log('submit', newBooking);
         handleClick(newBooking);
+        // dispatch({ type: ActionType.ADD, payload: newBooking });
         setNewBooking(booking || new Booking('', '', '', 0, new Customer('', '', '', '')));
     }
 

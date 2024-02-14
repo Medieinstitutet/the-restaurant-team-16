@@ -1,33 +1,37 @@
-import { useEffect, useState } from "react";
-import { createBooking, getBookings } from "../Services/BookingService";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { BookingForm } from "../components/BookingForm";
+import { BookingsContext, IBookingsContext } from "../contexts/BookingContext";
+import { ActionType, BookingReducer } from "../reducers/BookingReducer";
 import { Booking } from "../models/Booking";
+import { getBookings } from "../Services/BookingService";
 
 export const Home = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      const data = await getBookings()
-      setBookings(data)
-      console.log(data);
-    }
-    fetchBookings()
-  }, []);
-
+  const [state, setState] = useState<IBookingsContext>({ bookings: [], dispatch: () => { } });
+  const [bookings, dispatch] = useReducer(BookingReducer, state.bookings);
 
   const addNewBooking = (newBooking: Booking) => {
-    console.log('click');
-    createBooking(newBooking)
+    dispatch({ type: ActionType.ADD, payload: newBooking })
+    console.log('click', newBooking);
+    // createBooking(newBooking)
+    // getBookings().then((bookings) => {
+
+    // })
   }
 
-  return <>
+  useEffect(() => {
+    getBookings().then((bookings: Booking[]) => {
+      console.log('bookings', bookings);
+      state.bookings = bookings;
+    }, [])
+  })
+
+  return <BookingsContext.Provider value={{ bookings, dispatch }} >
     <BookingForm handleClick={addNewBooking} />
-    <ul>
+    {/* <ul>
       {bookings.map((booking, index) => (
         <li key={index}>{booking.date} - {booking.time}- {booking.numberOfGuests}
         </li>
       ))}
-    </ul>
-  </>;
+    </ul> */}
+  </BookingsContext.Provider>;
 }
