@@ -32,15 +32,15 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
 
     const updateBookingField = (key: keyof Booking, value: string | number) => {
         const totalAvailableSeats = 15 * 6;
+        const availability: ISittingAvailability = {}
         if (key === "date") {
             console.log('date', value);
-            const availability: ISittingAvailability = {}
             sittings.forEach(sitting => {
                 const totalPersons = getTotalPersonsForDateAndTime(value as string, sitting);
                 availability[sitting] = totalPersons < totalAvailableSeats;
-                setSittingAvailability(availability);
             });
             console.log('availableSeats', availability);
+            setSittingAvailability(availability);
         }
         if (key === "numberOfGuests") {
             const totalPersons = getTotalPersonsForDateAndTime(newBooking.date, newBooking.time);
@@ -49,10 +49,9 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
                 setShowMessage(true);
                 setMessage({ text: "So many people are not allowed to book a table at the same time, please try again with fewer people.", type: MessageType.ERROR });
                 setTimeOutMessage();
-                return newBooking.numberOfGuests = 0;
+                return;
             }
         }
-
 
         setNewBooking(prev => ({
             ...prev,
@@ -120,21 +119,19 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         }, 3000);
     }
 
+
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!newBooking.date || !newBooking.time || !newBooking.numberOfGuests || !newBooking.customer.name || !newBooking.customer.lastname || !newBooking.customer.email || !newBooking.customer.phone) {
-            // alert('All fields are required');
             setShowMessage(true);
             setMessage({ text: "All fields are required", type: MessageType.ERROR });
+            setTimeOutMessage();
         } else {
             handleClick(newBooking);
             setNewBooking(booking || new Booking('', '', '', 0, new Customer('', '', '', '')));
             setSittingAvailability(undefined);
-            setShowMessage(true);
-            setMessage({ text: "Booking successful", type: MessageType.SUCCES });
-            // console.log('submit', bookings, newBooking);
+            console.log('submit', bookings, newBooking);
         }
-        setTimeOutMessage();
     }
 
     return (
