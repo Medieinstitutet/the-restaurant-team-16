@@ -1,3 +1,5 @@
 export const Contact = () => {
-    return <>Contact</>
+    return <>
+        Contact
+    </>
 }

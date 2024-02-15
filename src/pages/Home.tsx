@@ -1,28 +1,25 @@
-import { useEffect, useState } from 'react';
-import { createBooking, getBookings } from '../Services/BookingService';
-import { BookingForm } from '../components/BookingForm';
-import { Booking } from '../models/Booking';
-import { Customer } from '../models/Customer';
+import { useEffect } from 'react';
+import { getBookings } from '../Services/BookingService';
 import './Home.scss';
 import myImage from '../assets/home-img.webp';
-import Bookings from '../components/Bookings';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  // const [bookings, setBookings] = useState<Booking[]>([]);
 
   useEffect(() => {
     const fetchBookings = async () => {
       const data = await getBookings();
-      setBookings(data);
+      // setBookings(data);
       console.log(data);
     };
     fetchBookings();
   }, []);
 
-  const addNewBooking = (newBooking: Booking) => {
-    console.log('click');
-    createBooking(newBooking);
-  };
+  // const addNewBooking = (newBooking: Booking) => {
+  //   console.log('click');
+  //   createBooking(newBooking);
+  // };
 
   return (
     <>
@@ -52,7 +49,8 @@ export const Home = () => {
           <p>Email: example@email.com</p>
         </div>
       </section>
-      <BookingForm handleClick={addNewBooking} />
+      <button><Link to={'/booking-page'}>Boka bord</Link></button>
+      {/* <BookingForm handleClick={addNewBooking} /> */}
 
       <img src={myImage} alt="" />
     </>
