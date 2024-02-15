@@ -8,11 +8,6 @@ import { ActionType } from "../reducers/BookingReducer";
 export const BookingPage = () => {
     const { dispatch } = useBookings();
 
-    const handleClick = () => {
-        console.log('kicka på knappen');
-
-    }
-
     const addNewBooking = async (newBooking: Booking) => {
         try {
             const createdBooking = await createBooking(newBooking);
@@ -24,7 +19,6 @@ export const BookingPage = () => {
     }
 
     return <>
-        <button onClick={handleClick}>Boka bord</button>
         <BookingForm handleClick={addNewBooking} />
     </>
 }
