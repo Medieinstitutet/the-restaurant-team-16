@@ -1,33 +1,60 @@
-import { useEffect, useState } from "react";
-import { createBooking, getBookings } from "../Services/BookingService";
-import { BookingForm } from "../components/BookingForm";
-import { Booking } from "../models/Booking";
+import { useEffect, useState } from 'react';
+import { createBooking, getBookings } from '../Services/BookingService';
+import { BookingForm } from '../components/BookingForm';
+import { Booking } from '../models/Booking';
+import { Customer } from '../models/Customer';
+import './Home.scss';
+import myImage from '../assets/home-img.webp';
+import Bookings from '../components/Bookings';
 
 export const Home = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const data = await getBookings()
-      setBookings(data)
+      const data = await getBookings();
+      setBookings(data);
       console.log(data);
-    }
-    fetchBookings()
+    };
+    fetchBookings();
   }, []);
-
 
   const addNewBooking = (newBooking: Booking) => {
     console.log('click');
-    createBooking(newBooking)
-  }
+    createBooking(newBooking);
+  };
 
-  return <>
-    <BookingForm handleClick={addNewBooking} />
-    <ul>
-      {bookings.map((booking, index) => (
-        <li key={index}>{booking.date} - {booking.time}- {booking.numberOfGuests}
-        </li>
-      ))}
-    </ul>
-  </>;
-}
+  return (
+    <>
+      <h1>Welcome</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis odio
+        voluptatem vitae quaerat consequuntur ex laboriosam in nobis ea dolor! Lorem
+        ipsum dolor sit amet consectetur adipisicing elit. Recusandae excepturi maiores
+        possimus soluta voluptatum quam minus repellendus ullam distinctio ea neque
+        praesentium sit dolore dolorum itaque.
+      </p>
+
+      <section>
+        <div>
+          <p>Opening Hours</p>
+          <p>Monday - Friday: 10:00 - 22:00</p>
+          <p>Saturday - Sunday: 12:00 - 22:00</p>
+        </div>
+        <div>
+          <p>Address</p>
+          <p>1234 Golden Fork Street</p>
+          <p>123 45 Golden City</p>
+        </div>
+        <div>
+          <p>Contact</p>
+          <p>Phone: 123 456 789</p>
+          <p>Email: example@email.com</p>
+        </div>
+      </section>
+      <BookingForm handleClick={addNewBooking} />
+
+      <img src={myImage} alt="" />
+    </>
+  );
+};
