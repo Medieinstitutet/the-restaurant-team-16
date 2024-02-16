@@ -28,4 +28,5 @@ const Admin = () => {
   );
 };
 
+//Admin verkar ha 2 footers, vet inte varför.
 export default Admin;
