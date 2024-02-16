@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer>
+    <>
       <div>
         <p>Opening Hours</p>
         <p>Monday - Friday: 10:00 - 22:00</p>
@@ -18,7 +18,7 @@ const Footer = () => {
         <p>Phone: 123 456 789</p>
         <p>Email: example@email.com</p>
       </div>
-    </footer>
+    </>
   );
 };
 
