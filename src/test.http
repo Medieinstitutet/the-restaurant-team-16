@@ -1,0 +1,14 @@
+PUT https://school-restaurant-api.azurewebsites.net/booking/update/65cded6694d2af1c6aeae913
+Content-Type: application/json 
+Accept: application/json
+
+{
+    "customerId": "65cbd433cb3bf494e3538aa5",
+    "date": "2024-02-16",
+    "numberOfGuests": 10,
+    "restaurantId": "65cb4a68505ba22f8dc6636f",
+    "time": "18:00",
+    "id": "65cded6694d2af1c6aeae913"
+}
+###
+GET https://school-restaurant-api.azurewebsites.net/booking/restaurant/65cb4a68505ba22f8dc6636f

@@ -1,26 +1,27 @@
-import { useEffect, useState } from 'react';
 import { getBookings } from '../Services/BookingService';
-import { Booking } from '../models/Booking';
 import Bookings from '../components/Bookings';
-
+import { useBookings } from '../contexts/BookingsContext';
+import { Booking } from '../models/Booking';
+import { ActionType } from '../reducers/BookingReducer';
 const Admin = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const { bookings, dispatch } = useBookings();
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      const data = await getBookings();
-      setBookings(data);
-      console.log(data);
-    };
+  const fetchBookings = async () => {
+    const bookings: Booking[] = await getBookings();
+    dispatch({ type: ActionType.SET_BOOKINGS, payload: bookings });
+  };
+
+  const onUpdateBookings = () => {
     fetchBookings();
-  }, []);
+  };
+
   return (
     <>
       <h1>Bookings</h1>
 
       <ul className="bookings">
         {bookings.map((booking, index) => (
-          <Bookings key={index} booking={booking} />
+          <Bookings key={index} booking={booking} onUpdateBookings={onUpdateBookings} />
         ))}
       </ul>
     </>
