@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getBookings } from '../Services/BookingService';
-import './Home.scss';
+import '../styles/Home.scss';
 import myImage from '../assets/home-img.webp';
 import { Link } from 'react-router-dom';
 import { ITheme } from '../components/Button';

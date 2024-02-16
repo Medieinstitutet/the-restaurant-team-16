@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Booking } from "../models/Booking"
 import { Customer } from "../models/Customer";
-import "./BookingForm.scss";
+import "../styles/BookingForm.scss";
 import { useBookings } from "../contexts/BookingsContext";
 import { Message, MessageType } from "./Message";
 import Button, { ITheme } from "./Button";
