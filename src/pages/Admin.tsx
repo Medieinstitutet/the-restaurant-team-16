@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getBookings } from '../Services/BookingService';
 import { Booking } from '../models/Booking';
 import Bookings from '../components/Bookings';
+import '../styles/Admin.scss'
 
 const Admin = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -27,4 +28,5 @@ const Admin = () => {
   );
 };
 
+//Admin verkar ha 2 footers, vet inte varför.
 export default Admin;
