@@ -5,6 +5,7 @@ import { BookingPage } from './pages/BookingPage';
 import { Contact } from './pages/Contact';
 import { NotFound } from './pages/NotFound';
 import Admin from './pages/Admin';
+
 export const router = createBrowserRouter([
   {
     path: '/',
