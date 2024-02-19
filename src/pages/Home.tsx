@@ -3,6 +3,7 @@ import { getBookings } from '../Services/BookingService';
 import '../styles/Home.scss';
 import myImage from '../assets/home-img.webp';
 import { Link } from 'react-router-dom';
+import { ITheme } from '../components/Button';
 
 export const Home = () => {
   // const [bookings, setBookings] = useState<Booking[]>([]);
@@ -49,7 +50,7 @@ export const Home = () => {
           <p>Email: example@email.com</p>
         </div>
       </section>
-      <button><Link to={'/booking-page'}>Boka bord</Link></button>
+      <Link className={`button ${ITheme.PRIMARY}`} to={'/booking-page'}>Boka bord</Link>
       {/* <BookingForm handleClick={addNewBooking} /> */}
 
       <img src={myImage} alt="" />
