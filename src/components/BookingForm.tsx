@@ -3,6 +3,8 @@ import { Booking } from "../models/Booking"
 import { Customer } from "../models/Customer";
 import "../styles/BookingForm.scss";
 import { useBookings } from "../contexts/BookingsContext";
+import { Message, MessageType } from "./Message";
+import Button, { ITheme } from "./Button";
 
 interface IBookingProps {
     booking?: Booking;
@@ -16,6 +18,9 @@ interface ISittingAvailability {
 export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
     const [newBooking, setNewBooking] = useState<Booking>(booking || new Booking("", "", "", 0, new Customer("", "", "", "")));
 
+    const [message, setMessage] = useState<{ text: string, type: MessageType } | null>(null);
+    const [showMessage, setShowMessage] = useState(false);
+
     const [sittingAvailability, setSittingAvailability] = useState<ISittingAvailability>();
 
     const { bookings } = useBookings();
@@ -27,25 +32,26 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
 
     const updateBookingField = (key: keyof Booking, value: string | number) => {
         const totalAvailableSeats = 15 * 6;
+        const availability: ISittingAvailability = {}
         if (key === "date") {
             console.log('date', value);
-            const availability: ISittingAvailability = {}
             sittings.forEach(sitting => {
                 const totalPersons = getTotalPersonsForDateAndTime(value as string, sitting);
                 availability[sitting] = totalPersons < totalAvailableSeats;
-                setSittingAvailability(availability);
             });
             console.log('availableSeats', availability);
+            setSittingAvailability(availability);
         }
         if (key === "numberOfGuests") {
             const totalPersons = getTotalPersonsForDateAndTime(newBooking.date, newBooking.time);
             if (totalPersons + (value as number) > totalAvailableSeats) {
                 console.log('No seats available');
-                alert('So many people are not allowed to book a table at the same time, please try again with fewer people.');
-                return newBooking.numberOfGuests = 0;
+                setShowMessage(true);
+                setMessage({ text: "So many people are not allowed to book a table at the same time, please try again with fewer people.", type: MessageType.ERROR });
+                setTimeOutMessage();
+                return;
             }
         }
-
 
         setNewBooking(prev => ({
             ...prev,
@@ -106,11 +112,26 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         )
     }
 
+    const setTimeOutMessage = () => {
+        setTimeout(() => {
+            setMessage(null);
+            setShowMessage(false);
+        }, 3000);
+    }
+
+
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('submit', newBooking);
-        handleClick(newBooking);
-        setNewBooking(booking || new Booking('', '', '', 0, new Customer('', '', '', '')));
+        if (!newBooking.date || !newBooking.time || !newBooking.numberOfGuests || !newBooking.customer.name || !newBooking.customer.lastname || !newBooking.customer.email || !newBooking.customer.phone) {
+            setShowMessage(true);
+            setMessage({ text: "All fields are required", type: MessageType.ERROR });
+            setTimeOutMessage();
+        } else {
+            handleClick(newBooking);
+            setNewBooking(booking || new Booking('', '', '', 0, new Customer('', '', '', '')));
+            setSittingAvailability(undefined);
+            console.log('submit', bookings, newBooking);
+        }
     }
 
     return (
@@ -156,7 +177,9 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
                         </div>
                     )
                 })}
-                <button type="submit">Boka</button>
+                <Button type="submit" text="Boka" theme={ITheme.PRIMARY} />
+
+                {showMessage && <Message text={message!.text} type={message!.type} />}
             </form>
         </div>
     )
