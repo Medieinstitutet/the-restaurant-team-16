@@ -6,12 +6,12 @@ import {
   useEffect,
   useReducer,
 } from 'react';
-import { Booking } from '../models/Booking';
 import { ActionType, BookingReducer, IAction } from '../reducers/BookingReducer';
 import { getBookings } from '../Services/BookingService';
+import { IBooking } from '../models/IBooking';
 
 export interface IBookingsContext {
-  bookings: Booking[];
+  bookings: IBooking[];
   dispatch: Dispatch<IAction>;
 }
 
@@ -41,7 +41,7 @@ export const BookingsProvider = ({ children }: { children: ReactNode }) => {
     // }
 
     const fetchBookings = async () => {
-      const bookings: Booking[] = await getBookings();
+      const bookings: IBooking[] = await getBookings();
       dispatch({ type: ActionType.SET_BOOKINGS, payload: bookings });
     };
 

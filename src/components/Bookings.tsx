@@ -2,20 +2,14 @@ import { useState } from 'react';
 import { API_BASE_URL } from '../Services/BookingService';
 import { put, remove } from '../Services/serviceBase';
 import './Bookings.scss';
-import { Booking } from '../models/Booking';
-// import { Booking } from '../models/Booking';
+import { IBooking } from '../models/IBooking';
 
-interface IBooking {
-  id: string;
-  restaurantId: '623b85d54396b96c57bde7c3';
-  date: string;
-  time: string;
-  numberOfGuests: number;
-  customerId: string;
-  // [key: string]: any;
+export interface IBookingProps {
+  booking: IBooking;
+  onUpdateBookings: () => void;
 }
 
-const Bookings = ({ booking, onUpdateBookings }: any) => {
+const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
   const [editing, setEditing] = useState(false);
   const [editedBooking, setEditedBooking] = useState({ ...booking });
 
@@ -31,21 +25,12 @@ const Bookings = ({ booking, onUpdateBookings }: any) => {
   };
 
   const handleEdit = () => {
-    console.log('edit ', editedBooking);
-    editedBooking.numberOfGuests = +editedBooking.numberOfGuests;
-
-    console.log(
-      'edit after ',
-      editedBooking,
-      'booking ',
-      booking,
-      'booking_id',
-      booking._id
-    );
+    console.log('edit ', editedBooking, booking);
+  
     setEditing(true);
     if (editing) {
       console.log('inne i if satsen');
-      put(`${API_BASE_URL}booking/update/${booking._id}`, editedBooking)
+      put(`${API_BASE_URL}booking/update/${booking._id}`, {...editedBooking, id: editedBooking._id})
         .then(() => {
           onUpdateBookings(); // Update bookings after successful edit
           console.log('haaaaaaalo', editedBooking);
@@ -64,18 +49,11 @@ const Bookings = ({ booking, onUpdateBookings }: any) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setEditedBooking((prevState: any) => ({
-      // ...prevState,
-      // ...(name === '_id' ? { id: value } : { [name]: value }),
-      //   let newState = { ...prevState };
-      // if (name === '_id') {
-      //   newState['id'] = value;
-      // } else {
-      //   newState[name as keyof IBooking] = name === 'numberOfGuests' ? +value : value;
-      // }
-      // return newState;
+    setEditedBooking((prevState) => ({
+      ...prevState,
+      [name]: name === 'numberOfGuests' ? +value : value,
     }));
-  };
+  }; 
 
   return (
     <div className="bookingInputs">

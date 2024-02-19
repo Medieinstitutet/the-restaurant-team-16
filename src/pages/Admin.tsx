@@ -1,15 +1,15 @@
 import { getBookings } from '../Services/BookingService';
 import Bookings from '../components/Bookings';
 import { useBookings } from '../contexts/BookingsContext';
-import { Booking } from '../models/Booking';
 import { ActionType } from '../reducers/BookingReducer';
 import '../styles/Admin.scss'
+import { IBooking } from '../models/IBooking';
 
 const Admin = () => {
   const { bookings, dispatch } = useBookings();
 
   const fetchBookings = async () => {
-    const bookings: Booking[] = await getBookings();
+    const bookings: IBooking[] = await getBookings();
     dispatch({ type: ActionType.SET_BOOKINGS, payload: bookings });
   };
 
