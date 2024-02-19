@@ -1,0 +1,30 @@
+h3{
+    font-size: 22px;
+}
+
+
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5rem;
+  border-bottom: 2px solid #d4af37;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    li {
+    list-style-type: none;
+    text-transform: uppercase;
+    
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
