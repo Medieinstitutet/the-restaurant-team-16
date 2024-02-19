@@ -3,6 +3,8 @@ import Bookings from '../components/Bookings';
 import { useBookings } from '../contexts/BookingsContext';
 import { Booking } from '../models/Booking';
 import { ActionType } from '../reducers/BookingReducer';
+import '../styles/Admin.scss'
+
 const Admin = () => {
   const { bookings, dispatch } = useBookings();
 
@@ -28,4 +30,5 @@ const Admin = () => {
   );
 };
 
+//Admin verkar ha 2 footers, vet inte varför.
 export default Admin;
