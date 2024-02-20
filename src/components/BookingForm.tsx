@@ -158,7 +158,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
                 {options.map((time, index) => (
                     <button key={index}
                         type="button"
-                        className={`${value === time ? 'selected' : ''} ${sittingAvailability ? sittingAvailability[time] ? '' : 'disabled' : ''} ${validInputStyle[key] ? validInputStyle[key] : ''} ${`button ${ITheme.PRIMARY}`} container`}
+                        className={`${value === time ? 'selected' : ''} ${sittingAvailability ? sittingAvailability[time] ? '' : 'disabled' : ''} ${validInputStyle[key] ? validInputStyle[key] : ''} ${`button ${ITheme.PRIMARY}`}`}
                         disabled={sittingAvailability ? !sittingAvailability[time] : false}
                         onClick={() => { updateBookingField(key as keyof Booking, time) }}>
                         {time}
