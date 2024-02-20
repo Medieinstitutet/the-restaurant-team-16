@@ -7,7 +7,7 @@ export const Home = () => {
   return (
     <>
       <h1>Welcome</h1>
-      <p>
+      <p className='home_para'>
         För "The Golden Fork", belägen på den historiska Västerlånggatan 68 i hjärtat av Gamla Stan, Stockholm, presenterar vi en meny som speglar en kombination av modern innovation och klassiska smaker. Restaurangen erbjuder en exklusiv matupplevelse där varje rätt är noggrant utformad för att förföra sinnena och erbjuda en minnesvärd middag. "The Golden Fork" välkomnar dig till en värld av utsökt matkonst, där tradition möter kreativitet i en elegant och inbjudande miljö.
       </p>
       <section>
