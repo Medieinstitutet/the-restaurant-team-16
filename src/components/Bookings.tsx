@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { API_BASE_URL } from '../Services/BookingService';
-import { put, remove } from '../Services/serviceBase';
-import './Bookings.scss';
-import { IBooking } from '../models/IBooking';
+import { useState } from "react";
+import { API_BASE_URL } from "../Services/BookingService";
+import { put, remove } from "../Services/serviceBase";
+import { IBooking } from "../models/IBooking";
 
 export interface IBookingProps {
   booking: IBooking;
@@ -20,24 +19,27 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
         onUpdateBookings();
       })
       .catch(error => {
-        console.error('Error deleting booking:', error);
+        console.error("Error deleting booking:", error);
       });
   };
 
   const handleEdit = () => {
-    console.log('edit ', editedBooking, booking);
-  
+    console.log("edit ", editedBooking, booking);
+
     setEditing(true);
     if (editing) {
-      console.log('inne i if satsen');
-      put(`${API_BASE_URL}booking/update/${booking._id}`, {...editedBooking, id: editedBooking._id})
+      console.log("inne i if satsen");
+      put(`${API_BASE_URL}booking/update/${booking._id}`, {
+        ...editedBooking,
+        id: editedBooking._id
+      })
         .then(() => {
           onUpdateBookings(); // Update bookings after successful edit
-          console.log('haaaaaaalo', editedBooking);
+          console.log("haaaaaaalo", editedBooking);
           setEditing(false); // Disable editing mode
         })
         .catch(error => {
-          console.error('Error updating booking:', error);
+          console.error("Error updating booking:", error);
         });
     }
     // else {
@@ -49,11 +51,11 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setEditedBooking((prevState) => ({
+    setEditedBooking(prevState => ({
       ...prevState,
-      [name]: name === 'numberOfGuests' ? +value : value,
+      [name]: name === "numberOfGuests" ? +value : value
     }));
-  }; 
+  };
 
   return (
     <div className="bookingInputs">
@@ -90,7 +92,9 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
         disabled={!editing}
       />
       <div>
-        <button onClick={handleEdit}>{editing ? 'Save' : 'Edit'}</button>
+        <button onClick={handleEdit}>
+          {editing ? "Save" : "Edit"}
+        </button>
         <button onClick={handleDelete}>Delete</button>
       </div>
     </div>

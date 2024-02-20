@@ -1,58 +1,33 @@
-import { useEffect } from 'react';
-import { getBookings } from '../Services/BookingService';
-import '../styles/Home.scss';
 import myImage from '../assets/home-img.webp';
 import { Link } from 'react-router-dom';
 import { ITheme } from '../components/Button';
 
 export const Home = () => {
-  // const [bookings, setBookings] = useState<Booking[]>([]);
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      const data = await getBookings();
-      // setBookings(data);
-      console.log(data);
-    };
-    fetchBookings();
-  }, []);
-
-  // const addNewBooking = (newBooking: Booking) => {
-  //   console.log('click');
-  //   createBooking(newBooking);
-  // };
 
   return (
     <>
       <h1>Welcome</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis odio
-        voluptatem vitae quaerat consequuntur ex laboriosam in nobis ea dolor! Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Recusandae excepturi maiores
-        possimus soluta voluptatum quam minus repellendus ullam distinctio ea neque
-        praesentium sit dolore dolorum itaque.
+        För "The Golden Fork", belägen på den historiska Västerlånggatan 68 i hjärtat av Gamla Stan, Stockholm, presenterar vi en meny som speglar en kombination av modern innovation och klassiska smaker. Restaurangen erbjuder en exklusiv matupplevelse där varje rätt är noggrant utformad för att förföra sinnena och erbjuda en minnesvärd middag. "The Golden Fork" välkomnar dig till en värld av utsökt matkonst, där tradition möter kreativitet i en elegant och inbjudande miljö.
       </p>
       <section>
-        <div>
-          <p>Opening Hours</p>
-          <p>Monday - Friday: 10:00 - 22:00</p>
-          <p>Saturday - Sunday: 12:00 - 22:00</p>
-        </div>
-        <div>
-          <p>Address</p>
-          <p>1234 Golden Fork Street</p>
-          <p>123 45 Golden City</p>
-        </div>
-        <div>
-          <p>Contact</p>
-          <p>Phone: 123 456 789</p>
-          <p>Email: example@email.com</p>
-        </div>
+        <article>
+          <i className="fas fa-utensils"></i>
+          <h2>Måltider</h2>
+          <p>Lorem, ipsum dolor.</p>
+        </article>
+        <article>
+          <i className="fas fa-wine-glass"></i>
+          <h2>Utsökta Drycker</h2>
+           <Link className={`button ${ITheme.PRIMARY}`} to={'/booking-page'}>Boka bord</Link>
+        </article>
+        <article>
+          <i className="fas fa-star"></i>
+          <h2>Exklusiv Kvalitet</h2>
+          <p>Lorem ipsum dolor sit ameht dsis</p>
+        </article>
       </section>
-      <Link className={`button ${ITheme.PRIMARY}`} to={'/booking-page'}>Boka bord</Link>
-      {/* <BookingForm handleClick={addNewBooking} /> */}
-
-      <img src={myImage} alt="" />
+      <img src={myImage} alt="The Golden Fork " />
     </>
   );
 };

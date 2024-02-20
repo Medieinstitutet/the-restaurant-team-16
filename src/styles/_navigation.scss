@@ -1,5 +1,5 @@
-h3{
-    font-size: 22px;
+h3 {
+  font-size: 22px;
 }
 
 nav {
@@ -16,9 +16,9 @@ nav {
     gap: 1rem;
 
     li {
-    list-style-type: none;
-    text-transform: uppercase;
-    
+      list-style-type: none;
+      text-transform: uppercase;
+
       &:hover,
       &:active {
         text-decoration: underline;
@@ -26,13 +26,13 @@ nav {
     }
   }
 }
-.container {
-  overflow: hidden;
-  background-color: #ffffff;
-}
+// .container {
+//   overflow: hidden;
+//   background-color: #ffffff;
+// }
 
-a.active{
-border-bottom: 2px solid #d4af37;;
+a.active {
+  border-bottom: 2px solid #d4af37;
 }
 
 .container a {
@@ -50,28 +50,24 @@ border-bottom: 2px solid #d4af37;;
 }
 
 @media only screen and (max-width: 600px) {
-    .container a {
+  .container a {
     float: none;
-    width: 100%;
-    }
-    nav{
-      padding: 1rem;
-      flex-direction: column;
-    }
-    html {
-        display: block;
-        
-    }
-    h3 {
-      font-size: 1rem;
-    }
-    
+    // width: 100%;
   }
-  
-
+  nav {
+    padding: 1rem;
+    flex-direction: column;
+  }
+  html {
+    display: block;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+}
 
 @media only screen and (max-width: 992px) {
-    html {
-        display: flex;
-    }
+  html {
+    display: flex;
+  }
 }

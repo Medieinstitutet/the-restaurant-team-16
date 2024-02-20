@@ -2,7 +2,6 @@ import { getBookings } from '../Services/BookingService';
 import Bookings from '../components/Bookings';
 import { useBookings } from '../contexts/BookingsContext';
 import { ActionType } from '../reducers/BookingReducer';
-import '../styles/Admin.scss'
 import { IBooking } from '../models/IBooking';
 
 const Admin = () => {

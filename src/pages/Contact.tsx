@@ -1,7 +1,5 @@
 import contactIMG from "../assets/img9.webp";
 import contactIMG2 from "../assets/img6.webp";
-import "../styles/Contact.scss";
-
 
 export const Contact = () => {
     return <>
