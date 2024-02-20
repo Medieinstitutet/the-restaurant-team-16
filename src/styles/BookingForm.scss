@@ -1,3 +1,92 @@
-main {
-    min-height: 926px;
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+
+    .container {
+        position: relative;
+
+        .form__input {
+            width: clamp(120px, 50vw, 420px);
+            height: 2.5rem;
+            padding: 0 1.25rem;
+            border: 1px solid black;
+            border-radius: 2px;
+            margin: 0.625rem auto;
+            transition: all 250ms;
+
+            &:focus {
+                outline: none;
+                border-top-color: rgba(0, 0, 0, 0.1);
+            }
+            &:focus + .form__label,
+            &:not(:placeholder-shown) + .form__label {
+                transform: translateY(-4.5rem) scale(1);
+                color: black;
+            }
+            &::placeholder {
+                display: none;
+                color: transparent;
+            }
+            &:not(:placeholder-shown) {
+                border-top-color: rgba(0, 0, 0, 0.5);
+            }
+
+            &.valid {
+                border: 1px solid green;
+                background-color: #dfd;
+                position: relative;
+
+                &:after {
+                    content: "✔";
+                    display: block;
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                    color: green;
+                }
+            }
+
+            &.invalid {
+                border: 1px solid red;
+                background-color: #fdd;
+                position: relative;
+                overflow: visible;
+
+                // ? It is not possible to use the & selector to select the parent element in CSS
+
+                &::after {
+                    content: "X";
+                    display: block;
+                    position: absolute;
+                    min-width: 20px;
+                    min-height: 20px;
+                    right: 10px;
+                    top: 10px;
+                    color: red;
+                    z-index: 9999;
+                    background-color: #0e0101;
+                    border-radius: 50%;
+                    border: 10px solid rgb(12, 11, 11);
+                }
+            }
+        }
+
+        .form__label {
+            font-size: 1rem;
+            color: gray;
+            display: block;
+            transform: translate(1.25rem, -2.5rem);
+            transform-origin: 0 0;
+            transition: all 500ms;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .button__container ~ .form__label {
+            transform: translateY(-4.5rem) scale(1);
+        }
+    }
 }
