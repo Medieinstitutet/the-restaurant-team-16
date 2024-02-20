@@ -4,7 +4,7 @@ export const Navigation = () => {
   return (
     <nav>
       <h3>The Golden Fork</h3>
-      <ul className="container">
+      <ul className="nav_container">
         <li className="active">
           <NavLink to={"/"}>Home</NavLink>
         </li>
