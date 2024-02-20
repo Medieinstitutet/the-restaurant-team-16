@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Navigation } from '../components/Navigation';
+import { Navigation } from './Navigation';
 import Footer from './Footer';
 import { BookingsProvider } from '../contexts/BookingsContext';
 

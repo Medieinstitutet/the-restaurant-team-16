@@ -32,7 +32,6 @@ export const Home = () => {
         possimus soluta voluptatum quam minus repellendus ullam distinctio ea neque
         praesentium sit dolore dolorum itaque.
       </p>
-
       <section>
         <div>
           <p>Opening Hours</p>

@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import "../styles/Nav.scss"
+import "./Navigation.scss";
 
 export const Navigation = () => {
   return (
     <nav>
       <h3>The Golden Fork</h3>
-      <ul>
-        <li>
+      <ul className='container'>
+        <li className='active'>
           <NavLink to={'/'}>Home</NavLink>
         </li>
         <li>
