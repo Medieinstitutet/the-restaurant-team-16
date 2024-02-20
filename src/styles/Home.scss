@@ -52,6 +52,7 @@ main {
     }
   }
 
+  
   img {
     width: 50%;
   }
@@ -64,6 +65,19 @@ main {
   justify-content: center;
   align-items: center;
   padding: 0 5rem;
+}
+@media only screen and (max-width: 600px) {
+  main section {
+        padding: 2rem;
+        flex-direction: column;
+        gap: 0;
+      div{
+      border: none;
+      border-top:  1px solid #d4af37;
+      border-bottom:  1px solid #d4af37;
+    }
+    }
+    
 }
 
 @media screen and (max-width: 768px) {

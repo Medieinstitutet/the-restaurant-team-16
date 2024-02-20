@@ -4,8 +4,10 @@ footer {
     display: flex;
     gap: 10rem;
     justify-content: space-between;
-    padding: 2rem;
     line-height: 2rem;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
 }
 
 div {
@@ -16,3 +18,22 @@ p {
     
 }
 
+@media only screen and (max-width: 600px) {
+    footer{
+    width: 100%;
+    margin-top: auto;
+    gap: 2rem;
+    flex-direction: column;
+    }
+    html {
+        display: block;
+        
+    }
+  
+}
+
+@media only screen and (max-width: 992px) {
+    html {
+        display: flex;
+    }
+}

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Message, MessageType } from "../components/Message";
 import Button, { ITheme } from "../components/Button";
 // import { Link } from 'react-router-dom';
+import '../styles/BookingForm.scss';
 
 
 export const BookingPage = () => {
