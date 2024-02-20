@@ -12,6 +12,9 @@ export const Navigation = () => {
           <NavLink to={"/booking-page"}>Booking</NavLink>
         </li>
         <li>
+          <NavLink to={"/admin"}>Admin</NavLink>
+        </li>
+        <li>
           <NavLink to={"/contact"}>Contact</NavLink>
         </li>
       </ul>
