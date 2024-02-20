@@ -8,22 +8,22 @@ export const Home = () => {
     <>
       <h1>Welcome</h1>
       <p className='home_para'>
-        För "The Golden Fork", belägen på den historiska Västerlånggatan 68 i hjärtat av Gamla Stan, Stockholm, presenterar vi en meny som speglar en kombination av modern innovation och klassiska smaker. Restaurangen erbjuder en exklusiv matupplevelse där varje rätt är noggrant utformad för att förföra sinnena och erbjuda en minnesvärd middag. "The Golden Fork" välkomnar dig till en värld av utsökt matkonst, där tradition möter kreativitet i en elegant och inbjudande miljö.
+        For "The Golden Fork," located on the historic Västerlånggatan 68 in the heart of Gamla Stan, Stockholm, we present a menu that reflects a combination of modern innovation and classic flavors. The restaurant offers an exclusive dining experience where each dish is carefully crafted to seduce the senses and provide a memorable meal. "The Golden Fork" welcomes you to a world of exquisite culinary art, where tradition meets creativity in an elegant and inviting atmosphere.
       </p>
       <section>
         <article>
           <i className="fas fa-utensils"></i>
-          <h2>Måltider</h2>
+          <h2>Meals</h2>
           <p>Lorem, ipsum dolor.</p>
         </article>
         <article>
           <i className="fas fa-wine-glass"></i>
-          <h2>Utsökta Drycker</h2>
-           <Link className={`button ${ITheme.PRIMARY}`} to={'/booking-page'}>Boka bord</Link>
+          <h2>Exquisite Drinks</h2>
+           <Link className={`button ${ITheme.PRIMARY}`} to={'/booking-page'}>Reserve a Table</Link>
         </article>
         <article>
           <i className="fas fa-star"></i>
-          <h2>Exklusiv Kvalitet</h2>
+          <h2>Exclusive Quality</h2>
           <p>Lorem ipsum dolor sit ameht dsis</p>
         </article>
       </section>
