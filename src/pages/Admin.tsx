@@ -4,7 +4,7 @@ import { useBookings } from '../contexts/BookingsContext';
 import { ActionType } from '../reducers/BookingReducer';
 import '../styles/Admin.scss';
 import { IBooking } from '../models/IBooking';
-import Button, { ITheme } from '../components/Button';
+import { ITheme } from '../components/Button';
 import { Link } from 'react-router-dom';
 
 const Admin = () => {
