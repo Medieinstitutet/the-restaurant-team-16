@@ -234,6 +234,16 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
     }
   };
 
+ const customerKeyToInputType = (customerKey:string) => {
+    if (customerKey === "email") {
+      return "email"
+    }
+    if (customerKey = "phone") {
+      return "tel"
+    }
+    return "text"
+  }
+
   return (
     <>
       <form onSubmit={onSubmit} className="form">
@@ -245,7 +255,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
               (customerKey, customerIndex) => (
                 <div key={`customer-${customerIndex}`} className="container">
                   <input
-                    type="text"
+                    type={customerKeyToInputType(customerKey)} 
                     placeholder={
                       customerKey.charAt(0).toUpperCase() + customerKey.slice(1)
                     }
@@ -264,7 +274,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
                   </label>
                 </div>
               )
-            );
+            );           
           }
           let inputField;
           const value = newBooking[key as keyof Booking];
@@ -278,7 +288,12 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
             case 'date':
               inputField = renderInputField(key, value || '', 'date');
               break;
-            default:
+            // 
+            case 'email':
+              inputField = renderInputField(key, value || '', 'email');
+              break;
+            // 
+            default:              
               inputField = renderInputField(key, value || '', 'text');
               break;
           }
