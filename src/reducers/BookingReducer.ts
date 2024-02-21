@@ -1,4 +1,3 @@
-import { getCustomersId } from "../Services/BookingService";
 import { IBooking } from "../models/IBooking";
 
 export interface IRespons {
@@ -7,28 +6,32 @@ export interface IRespons {
 }
 
 export type IAction =
-    {type: ActionType.ADD, payload: IRespons} | {type: ActionType.REMOVE, payload: number} | {type: ActionType.SET_BOOKINGS, payload: IBooking[]}
+    { type: ActionType.ADD, payload: IBooking } | {type: ActionType.PUT, payload: IBooking} | {type: ActionType.REMOVE, payload: string} | {type: ActionType.SET_BOOKINGS, payload: IBooking[]}
 
 export enum ActionType { 
     ADD,
+    PUT,
     REMOVE,
     SET_BOOKINGS,
+    ADD_BOOKING,
 }
 
 export const BookingReducer = (state: IBooking[], action: IAction): IBooking[] => {
-    console.log('reducer', state);
     switch (action.type) {
         case ActionType.SET_BOOKINGS:
             return action.payload;
         case ActionType.ADD:
-            console.log('click add', action.payload, "state", state);
-            getCustomersId(action.payload.insertedId).then((data) => { 
-                console.log("data",data);
-                return [...state, data];
-            });
-            return state;
-        // case ActionType.REMOVE:
-        //     return bookings.filter((booking) => booking !== action.payload);
+            return [...state, action.payload];
+        case ActionType.PUT:
+            return state.map((booking) => { 
+                if (booking._id === action.payload._id) {
+                    return action.payload;
+                }
+                return booking;
+            });   
+            
+        case ActionType.REMOVE:
+            return state.filter((booking) => booking._id !== action.payload);
         default:
             return state;
     }

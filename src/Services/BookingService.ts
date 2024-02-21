@@ -1,7 +1,7 @@
 import { Booking } from '../models/Booking';
 import { IBooking } from '../models/IBooking';
 import { IRespons } from '../reducers/BookingReducer';
-import { get, post } from './serviceBase';
+import { get, post, put, remove } from './serviceBase';
 
 export const API_BASE_URL = 'https://school-restaurant-api.azurewebsites.net/';
 
@@ -56,27 +56,32 @@ export const getCustomersId = async (bookingId: string): Promise<IBooking> => {
   }
 }
 
-// export const updateBooking = async (updatedBooking: IBooking): Promise<Booking> => {
-//   try {
-//     const response = await post<Booking>(
-//       `${API_BASE_URL}booking/update/${updatedBooking.id}`,
-//       updatedBooking
-//     );
-//     console.log(response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Failed to update booking:', error);
-//     throw error;
-//   }
-// };
+export const updateBooking = async (updatedBooking: IBooking): Promise<void> => {
+  try {
+    const bookingWithId: IBooking & { id?: string } = {
+      ...updatedBooking,
+      id: updatedBooking._id,
+    }
+    
+    const response = await put<IBooking>(
+      `${API_BASE_URL}booking/update/${updatedBooking._id}`,
+      bookingWithId
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update booking:', error);
+    throw error;
+  }
+};
 
-// export const deleteBooking = async (bookingId: string): Promise<void> => {
-//   try {
-//     await post(`${API_BASE_URL}booking/delete/${bookingId}`);
-//   } catch (error) {
-//     console.error('Failed to delete booking:', error);
-//     throw error;
-//   }
-// };
+export const deleteBooking = async (bookingId: string): Promise<void> => {
+  try {
+    await remove(`${API_BASE_URL}booking/delete/${bookingId}`);
+  } catch (error) {
+    console.error('Failed to delete booking:', error);
+    throw error;
+  }
+};
 
 

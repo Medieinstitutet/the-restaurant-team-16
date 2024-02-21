@@ -1,52 +1,35 @@
-import { useState } from 'react';
-import { API_BASE_URL } from '../Services/BookingService';
-import { put, remove } from '../Services/serviceBase';
-import { IBooking } from '../models/IBooking';
+import { useState } from "react";
+import { IBooking } from "../models/IBooking";
+import { useBookings } from "../contexts/BookingsContext";
+import { ActionType } from "../reducers/BookingReducer";
+import { deleteBooking, updateBooking } from "../Services/BookingService";
 
 export interface IBookingProps {
   booking: IBooking;
-  onUpdateBookings: () => void;
 }
 
-const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
+const Bookings = ({ booking }: IBookingProps) => {
   const [editing, setEditing] = useState(false);
   const [editedBooking, setEditedBooking] = useState({ ...booking });
 
+  const { dispatch } = useBookings();
+
   const handleDelete = () => {
-    remove(`${API_BASE_URL}booking/delete/${booking._id}`)
-      .then(() => {
-        onUpdateBookings();
-      })
-      .catch(error => {
-        console.error('Error deleting booking:', error);
-      });
+    deleteBooking(booking._id);
+    dispatch({ type: ActionType.REMOVE, payload: booking._id });
   };
 
   const handleEdit = () => {
-    console.log('edit ', editedBooking, booking);
+    console.log("edit ", editedBooking, booking);
 
-    console.log('edit ', editedBooking, booking);
+    console.log("edit ", editedBooking, booking);
 
     setEditing(true);
     if (editing) {
-      console.log('inne i if satsen');
-      put(`${API_BASE_URL}booking/update/${booking._id}`, {
-        ...editedBooking,
-        id: editedBooking._id,
-      });
-      console.log('inne i if satsen');
-      put(`${API_BASE_URL}booking/update/${booking._id}`, {
-        ...editedBooking,
-        id: editedBooking._id,
-      })
-        .then(() => {
-          onUpdateBookings(); // Update bookings after successful edit
-          console.log('haaaaaaalo', editedBooking);
-          setEditing(false); // Disable editing mode
-        })
-        .catch(error => {
-          console.error('Error updating booking:', error);
-        });
+      console.log("inne i if satsen");
+      updateBooking(editedBooking);
+      dispatch({ type: ActionType.PUT, payload: editedBooking });
+      setEditing(false);
     }
   };
 
@@ -55,7 +38,7 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
 
     setEditedBooking(prevState => ({
       ...prevState,
-      [name]: name === 'numberOfGuests' ? +value : value,
+      [name]: name === "numberOfGuests" ? +value : value
     }));
   };
 
@@ -94,7 +77,9 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
         disabled={!editing}
       />
       <div>
-        <button onClick={handleEdit}>{editing ? 'Save' : 'Edit'}</button>
+        <button onClick={handleEdit}>
+          {editing ? "Save" : "Edit"}
+        </button>
         <button onClick={handleDelete}>Delete</button>
       </div>
     </div>
