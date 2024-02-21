@@ -20,30 +20,11 @@ export const Message = ({
   handleClose,
   showButton
 }: MessageProps) => {
-  // useEffect(() => {
-  //     let timer: number | undefined;
-  //     if (show && show !== undefined) {
-  //         timer = setTimeout(() => {
-  //             // handleClose && handleClose();
-  //         }, 3000);
-  //     }
-  //     return () => {
-  //         clearTimeout(timer);
-  //     }
-
-  // }, [show]);
-
-  // const handleClick = () => {
-  //     console.log('click', text, type);
-  //     handleClose && handleClose();
-  // }
-
   return (
     <div>
       <div className={`message ${type} message-appear`}>
         {text}
       </div>
-      {/* <div className={`message ${type} ${showButton ? 'visible' : ''} message-appear`}>{text}</div> */}
       {showButton &&
         <Button
           text="Close"

@@ -20,13 +20,8 @@ const Bookings = ({ booking }: IBookingProps) => {
   };
 
   const handleEdit = () => {
-    console.log("edit ", editedBooking, booking);
-
-    console.log("edit ", editedBooking, booking);
-
     setEditing(true);
     if (editing) {
-      console.log("inne i if satsen");
       updateBooking(editedBooking);
       dispatch({ type: ActionType.PUT, payload: editedBooking });
       setEditing(false);

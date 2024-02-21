@@ -17,7 +17,6 @@ export const BookingPage = () => {
         try {
             const createdBooking = await createBooking(newBooking);
             getCustomersId(createdBooking.insertedId).then((data) => {
-                console.log("data", data);
                 dispatch({ type: ActionType.ADD, payload: data });
             });
 

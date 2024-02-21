@@ -37,7 +37,6 @@ export const createBooking = async (newBooking: Booking): Promise<IRespons> => {
         
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Failed to create booking:', error);
@@ -48,7 +47,6 @@ export const createBooking = async (newBooking: Booking): Promise<IRespons> => {
 export const getCustomersId = async (bookingId: string): Promise<IBooking> => {
   try {
     const response = await get<IBooking[]>(`${API_BASE_URL}booking/${bookingId}`);
-    console.log("response data", response.data);
     return response.data[0];
   } catch (error) {
     console.error('Error getting bookings:', error);
@@ -67,7 +65,6 @@ export const updateBooking = async (updatedBooking: IBooking): Promise<void> => 
       `${API_BASE_URL}booking/update/${updatedBooking._id}`,
       bookingWithId
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Failed to update booking:', error);
