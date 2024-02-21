@@ -6,6 +6,7 @@ import '../styles/Admin.scss';
 import { IBooking } from '../models/IBooking';
 import { ITheme } from '../components/Button';
 import { Link } from 'react-router-dom';
+import { BookingForm } from '../components/BookingForm';
 
 const Admin = () => {
   const { bookings, dispatch } = useBookings();
