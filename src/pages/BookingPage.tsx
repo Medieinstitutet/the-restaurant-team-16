@@ -6,9 +6,6 @@ import { ActionType } from "../reducers/BookingReducer";
 import { useState } from "react";
 import { Message, MessageType } from "../components/Message";
 import Button, { ITheme } from "../components/Button";
-// import { Link } from 'react-router-dom';
-import '../styles/BookingForm.scss';
-
 
 export const BookingPage = () => {
     const { dispatch } = useBookings();
@@ -41,13 +38,10 @@ export const BookingPage = () => {
     return <>
         {!hideForm ? <BookingForm handleClick={addNewBooking} /> : <div>
             {showMessage && <Message text={message!.text} type={message!.type} />}
-            //? is it the best way to handle this?
             <Button text="Boka igen" theme={ITheme.PRIMARY} handleClick={() => {
                 setHideForm(false)
                 location.reload()
             }}></Button>
-            //Todo: Fix this button to go to home page with reload BookingPage
-            {/* <Link to={'/'} className={`button ${ITheme.SECONDARY}`}>Home</Link> */}
         </div>}
     </>
 }
