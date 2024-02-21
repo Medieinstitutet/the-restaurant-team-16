@@ -13,7 +13,6 @@ export enum ITheme {
 
 const Button = ({ text, theme, disabled, handleClick }: ButtonProps) => {
   const onclick = () => {
-    console.log("Button clicked");
     handleClick && handleClick();
   };
 
