@@ -2,8 +2,11 @@ import { getBookings } from '../Services/BookingService';
 import Bookings from '../components/Bookings';
 import { useBookings } from '../contexts/BookingsContext';
 import { ActionType } from '../reducers/BookingReducer';
-import '../styles/Admin.scss'
+import '../styles/Admin.scss';
 import { IBooking } from '../models/IBooking';
+import { ITheme } from '../components/Button';
+import { Link } from 'react-router-dom';
+import { BookingForm } from '../components/BookingForm';
 
 const Admin = () => {
   const { bookings, dispatch } = useBookings();
@@ -20,6 +23,9 @@ const Admin = () => {
   return (
     <>
       <h1>Bookings</h1>
+      <Link className={`button ${ITheme.PRIMARY}`} to={'/booking-page'}>
+        Add new booking
+      </Link>
 
       <ul className="bookings">
         {bookings.map((booking, index) => (
