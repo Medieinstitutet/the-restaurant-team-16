@@ -31,7 +31,12 @@ export const getBookings = async () => {
 
 export const createBooking = async (newBooking: Booking): Promise<IRespons> => {
   try {
-    const response = await post<Booking>(`${API_BASE_URL}booking/create`, newBooking);
+    const response = await post<Booking>(`${API_BASE_URL}booking/create`, newBooking, {
+      headers: {
+        'Content-Type': 'application/json',
+        
+      },
+    });
     console.log(response.data);
     return response.data;
   } catch (error) {
