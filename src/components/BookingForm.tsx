@@ -51,7 +51,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         const totalPersons = getTotalPersonsForDateAndTime(date, sitting);
         availability[sitting] = totalPersons < totalAvailableSeats;
       });
-      console.log('availableSeats', availability);
       setSittingAvailability(availability);
 
       if (numberOfGuests) {
@@ -59,7 +58,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
           getTotalPersonsForDateAndTime(newBooking.date, newBooking.time) +
             (numberOfGuests ?? 0) >
           totalAvailableSeats;
-        console.log('No seats available');
         if (isAvailable) {
           setShowMessage(true);
           setMessage({
@@ -69,21 +67,14 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
           setTimeOutMessage();
         }
 
-        console.log('isAvailable', isAvailable);
       }
     }
-    console.log('inne i func', [
-      { isAvailableNumberOfGuests: isAvailable },
-      availability,
-    ]);
     return [{ isAvailableNumberOfGuests: isAvailable }, availability];
   };
 
   const updateBookingField = (key: keyof Booking, value: string | number) => {
     if (key === 'date') {
-      console.log('date', value);
       const result = checkAvailability(value as string);
-      console.log('result från if date i change', result);
       if (value === '' || result[0].isAvailableNumberOfGuests) {
         setValidInputStyle(prevState => ({ ...prevState, [key]: 'invalid' }));
         return;
@@ -98,7 +89,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
       } else {
         setValidInputStyle(prevState => ({ ...prevState, [key]: 'valid' }));
       }
-      console.log('result från if numberOfGuests i change', result);
     }
 
     if (
@@ -123,7 +113,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
       [key]: value,
     }));
   };
-  console.log('validddddd', validInputStyle);
 
   const updateCustomerField = (key: keyof Customer, value: string) => {
     if (value === '') {
@@ -211,7 +200,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('newBooking', newBooking);
     if (
       !newBooking.date ||
       !newBooking.time ||
@@ -230,7 +218,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
         booking || new Booking('', '', '', 0, new Customer('', '', '', ''))
       );
       setSittingAvailability(undefined);
-      console.log('submit', bookings, newBooking);
     }
   };
 
