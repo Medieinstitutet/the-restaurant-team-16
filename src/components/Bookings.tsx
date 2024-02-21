@@ -16,7 +16,6 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
   const handleDelete = () => {
     remove(`${API_BASE_URL}booking/delete/${booking._id}`)
       .then(() => {
-        // Update the bookings in the parent component after successful deletion
         onUpdateBookings();
       })
       .catch(error => {
@@ -26,48 +25,45 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
 
   const handleEdit = () => {
     console.log('edit ', editedBooking, booking);
-  
+
     setEditing(true);
     if (editing) {
       console.log('inne i if satsen');
-      put(`${API_BASE_URL}booking/update/${booking._id}`, {...editedBooking, id: editedBooking._id})
+      put(`${API_BASE_URL}booking/update/${booking._id}`, {
+        ...editedBooking,
+        id: editedBooking._id,
+      })
         .then(() => {
-          onUpdateBookings(); // Update bookings after successful edit
+          onUpdateBookings();
           console.log('haaaaaaalo', editedBooking);
-          setEditing(false); // Disable editing mode
+          setEditing(false);
         })
         .catch(error => {
           console.error('Error updating booking:', error);
         });
     }
-    // else {
-    //   setEditing(true); // Enable editing mode
-    //   console.log(editedBooking);
-    // }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setEditedBooking((prevState) => ({
+    setEditedBooking(prevState => ({
       ...prevState,
       [name]: name === 'numberOfGuests' ? +value : value,
     }));
-  }; 
+  };
 
   return (
     <div className="bookingInputs">
-      {/* <input type="text" value={`Booking ID: ${booking._id}`} disabled />
-      <input type="text" value={`Date: ${booking.date}`} disabled />
-      <input type="text" value={`Guests: ${booking.numberOfGuests}`} disabled />
-      <input type="text" value={`Time: ${booking.time}`} disabled /> */}
+      <label htmlFor="id">Booking ID</label>
       <input
         type="text"
-        name="date"
+        name="id"
         value={booking._id}
         onChange={handleChange}
         disabled={!editing}
       />
+      <label htmlFor="date">Date</label>
       <input
         type="date"
         name="date"
@@ -75,6 +71,7 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
         onChange={handleChange}
         disabled={!editing}
       />
+      <label htmlFor="numberOfGuests">Guests</label>
       <input
         type="number"
         name="numberOfGuests"
@@ -82,6 +79,7 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
         onChange={handleChange}
         disabled={!editing}
       />
+      <label htmlFor="time">Time</label>
       <input
         type="time"
         name="time"
