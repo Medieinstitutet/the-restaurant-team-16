@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Booking } from '../models/Booking';
 import { Customer } from '../models/Customer';
-import '../styles/BookingForm.scss';
 import { useBookings } from '../contexts/BookingsContext';
 import { Message, MessageType } from './Message';
 import Button, { ITheme } from './Button';
@@ -190,7 +189,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
               sittingAvailability ? (sittingAvailability[time] ? '' : 'disabled') : ''
             } ${
               validInputStyle[key] ? validInputStyle[key] : ''
-            } ${`button ${ITheme.PRIMARY}`} container`}
+            } ${`button ${ITheme.PRIMARY}`}`}
             disabled={sittingAvailability ? !sittingAvailability[time] : false}
             onClick={() => {
               updateBookingField(key as keyof Booking, time);
@@ -293,15 +292,6 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
             </div>
           );
         })}
-
-        <div>
-          <input type="checkbox" name="gdpr" id="gdpr" required />
-          <label htmlFor="gdpr">
-            I have read and agree to The Golden Fork's Terms of Service and Privacy
-            Policy
-          </label>
-        </div>
-
         <Button type="submit" text="Boka" theme={ITheme.PRIMARY} />
 
         {showMessage && <Message text={message!.text} type={message!.type} />}

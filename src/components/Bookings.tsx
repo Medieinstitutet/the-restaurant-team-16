@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { API_BASE_URL } from '../Services/BookingService';
 import { put, remove } from '../Services/serviceBase';
-import './Bookings.scss';
 import { IBooking } from '../models/IBooking';
 
 export interface IBookingProps {
@@ -26,17 +25,24 @@ const Bookings = ({ booking, onUpdateBookings }: IBookingProps) => {
   const handleEdit = () => {
     console.log('edit ', editedBooking, booking);
 
+    console.log('edit ', editedBooking, booking);
+
     setEditing(true);
     if (editing) {
       console.log('inne i if satsen');
       put(`${API_BASE_URL}booking/update/${booking._id}`, {
         ...editedBooking,
         id: editedBooking._id,
+      });
+      console.log('inne i if satsen');
+      put(`${API_BASE_URL}booking/update/${booking._id}`, {
+        ...editedBooking,
+        id: editedBooking._id,
       })
         .then(() => {
-          onUpdateBookings();
+          onUpdateBookings(); // Update bookings after successful edit
           console.log('haaaaaaalo', editedBooking);
-          setEditing(false);
+          setEditing(false); // Disable editing mode
         })
         .catch(error => {
           console.error('Error updating booking:', error);
