@@ -279,7 +279,7 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
             </div>
           );
         })}
-        <div>
+        <div className="gdpr_content">
           <input type="checkbox" name="gdpr" id="gdpr" required />
           <label htmlFor="gdpr">
             I have read and agree to The Golden Fork's Terms of Service and Privacy
