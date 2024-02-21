@@ -292,7 +292,15 @@ export const BookingForm = ({ booking, handleClick }: IBookingProps) => {
             </div>
           );
         })}
-        <Button type="submit" text="Boka" theme={ITheme.PRIMARY} />
+
+        <div>
+          <input type="checkbox" name="gdpr" id="gdpr" required />
+          <label htmlFor="gdpr">
+            I have read and agree to The Golden Fork's Terms of Service and Privacy
+            Policy
+          </label>
+        </div>
+        <Button type="submit" text="Book" theme={ITheme.PRIMARY} />
 
         {showMessage && <Message text={message!.text} type={message!.type} />}
       </form>
