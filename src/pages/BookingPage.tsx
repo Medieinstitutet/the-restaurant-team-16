@@ -20,7 +20,7 @@ export const BookingPage = () => {
             dispatch({ type: ActionType.ADD, payload: createdBooking });
             setHideForm(true);
             setShowMessage(true);
-            setMessage({ text: `Tack ${newBooking.customer.name} ${newBooking.customer.lastname} för din bokning`, type: MessageType.SUCCES });
+            setMessage({ text: `Thank you ${newBooking.customer.name} ${newBooking.customer.lastname} for your booking!`, type: MessageType.SUCCES });
             setTimeOutMessage();
 
         } catch (error) {
@@ -36,9 +36,9 @@ export const BookingPage = () => {
     }
 
     return <>
-        {!hideForm ? <BookingForm handleClick={addNewBooking} /> : <div>
+        {!hideForm ? <BookingForm handleClick={addNewBooking} /> : <div className="after_booking">
             {showMessage && <Message text={message!.text} type={message!.type} />}
-            <Button text="Boka igen" theme={ITheme.PRIMARY} handleClick={() => {
+            <Button text="Go back to Booking" theme={ITheme.PRIMARY} handleClick={()=> {
                 setHideForm(false)
                 location.reload()
             }}></Button>
