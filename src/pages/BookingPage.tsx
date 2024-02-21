@@ -1,5 +1,5 @@
 import { Booking } from "../models/Booking";
-import { createBooking } from "../Services/BookingService";
+import { createBooking, getCustomersId } from "../Services/BookingService";
 import { BookingForm } from "../components/BookingForm";
 import { useBookings } from "../contexts/BookingsContext";
 import { ActionType } from "../reducers/BookingReducer";
@@ -16,11 +16,14 @@ export const BookingPage = () => {
     const addNewBooking = async (newBooking: Booking) => {
         try {
             const createdBooking = await createBooking(newBooking);
-            console.log(typeof createdBooking, newBooking);
-            dispatch({ type: ActionType.ADD, payload: createdBooking });
+            getCustomersId(createdBooking.insertedId).then((data) => {
+                console.log("data", data);
+                dispatch({ type: ActionType.ADD, payload: data });
+            });
+
             setHideForm(true);
             setShowMessage(true);
-            setMessage({ text: `Tack ${newBooking.customer.name} ${newBooking.customer.lastname} för din bokning`, type: MessageType.SUCCES });
+            setMessage({ text: `Thanks ${newBooking.customer.name} ${newBooking.customer.lastname} for your booking`, type: MessageType.SUCCES });
             setTimeOutMessage();
 
         } catch (error) {
