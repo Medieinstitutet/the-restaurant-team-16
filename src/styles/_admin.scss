@@ -1,0 +1,79 @@
+.admin_wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .bookings_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .booking_content {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid #000;
+      width: clamp(250px, calc((100vw - 40px) / 3), 420px);
+
+      &:hover {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+      }
+
+      .form__label {
+        font-family: "Playfair Display";
+        font-size: 1.25rem;
+        color: black;
+        transition: all 250ms;
+      }
+
+      .form__input {
+        width: 80%;
+        height: 2.5rem;
+        padding: 0 1.25rem;
+        border: 1px solid black;
+        border-radius: 2px;
+        margin: 0.625rem auto;
+        transition: all 250ms;
+
+        &::placeholder {
+          display: none;
+          color: transparent;
+        }
+
+        &:not(:placeholder-shown) {
+          border-top-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+    button {
+      font-family: "Playfair Display";
+      margin: 0.3rem 0;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    gap: 2rem;
+    padding: 0 2rem;
+    div {
+      width: 100%;
+      button {
+        align-self: flex-start;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .admin_wrapper {
+    .bookings_container {
+      .booking_content {
+        width: 100%;
+      }
+    }
+  }
+}
