@@ -38,9 +38,11 @@ export const BookingPage = () => {
     }
 
     return <>
-        {!hideForm ? <BookingForm handleClick={addNewBooking} /> : <div>
+        {!hideForm ? <BookingForm handleClick={addNewBooking} /> : <div
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        >
             {showMessage && <Message text={message!.text} type={message!.type} />}
-            <Button text="Boka igen" theme={ITheme.PRIMARY} handleClick={() => {
+            <Button text="Book another table" theme={ITheme.SECONDARY} handleClick={() => {
                 setHideForm(false)
                 location.reload()
             }}></Button>
